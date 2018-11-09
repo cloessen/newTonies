@@ -1,0 +1,43 @@
+<nav class="navbar sticky-top  navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <!--<button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"-->
+          <!--[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">-->
+    <!--Toggle-->
+  <!--</button>-->
+  <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+    <!--<span class="navbar-toggler-icon"></span>-->
+  <!--</button>-->
+  <div class="btn-group" ngbDropdown role="group" placement="bottom-right" style="cursor: pointer" >
+    <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-bars"></i> </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+      <button class="btn nav-item dropdown-item" routerLink="/"><i class="fas fa-home"></i> Startseite</button>
+      <button class="btn nav-item dropdown-item" routerLink="/mytonies"><i class="fas fa-tasks"></i> Meine Tonies</button>
+      <button class="btn nav-item dropdown-item" routerLink="/alltonies"><i class="fas fa-list-ul"></i> Alle Tonies</button>
+      <button class="btn nav-item dropdown-item" routerLink="/wishlist"><i class="fas fa-gift"></i> Wunschliste</button>
+      <div class="dropdown-divider"></div>
+      <button class="btn nav-item dropdown-item" routerLink="/settings"><i class="fas fa-cogs"></i> Einstellungen</button>
+      <button class="btn nav-item dropdown-item" routerLink="/share"><i class="fas fa-share"></i> Teilen</button>
+      <div class="dropdown-divider"></div>
+      <button class="btn nav-item dropdown-item" (click)="signOutHandler()">
+        <span class="text-danger">
+          <i class="fas fa-sign-out-alt"></i> Abmelden
+        </span>
+      </button>
+    </div>
+  </div>
+
+
+
+  <!--<div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">-->
+    <!--<ul class="navbar-nav mr-auto">-->
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
+      <!--</li>-->
+      <!--<li class="nav-item">-->
+        <!--<a class="nav-link" href="#">Link</a>-->
+      <!--</li>-->
+
+    <!--</ul>-->
+
+  <!--</div>-->
+</nav>
