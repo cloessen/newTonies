@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ToniesService } from '../../../services/tonies.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-my-tonies',
@@ -7,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyToniesComponent implements OnInit {
 
-  constructor() { }
+  myTonies: Observable<any>;
+  constructor(
+    private _tonies: ToniesService
+  ) {
+    this.myTonies = this._tonies.getMyTonies();
+  }
 
   ngOnInit() {
   }

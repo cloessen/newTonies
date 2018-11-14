@@ -1,22 +1,35 @@
 <div class="jumbotron">
-  <h1 class="d-none d-sm-none d-md-block display-1">myTonies.app</h1>
+  <h1 class="d-none d-sm-none d-md-block display-1">myTonies</h1>
   <h1 class="d-block d-sm-block d-md-none display-4">myTonies</h1>
   <!--<h1 class="d-xl-none">myTonies.app</h1>-->
   <p class="lead">
-    Deine <strong>Tonie's Sammlung</strong> <em> immer</em> und <em>überall</em> im Blick!
+    Deine <strong>Tonies Sammlung</strong> <em> immer</em> und <em>überall</em> im Blick!
   </p>
   <p class="lead">
-    Wähle aus welche Tonie's Du schon hast, <br>
+    Wähle aus welche Tonies Du schon hast, <br>
     erstelle eine <strong>Wunschliste</strong> und <strong>teile</strong> Sie mit deiner Familie und Freunden z.B. bei <strong>Facebook</strong> <br>
     oder verschicke einen Link per <strong>Email</strong>!
   </p>
   <hr class="my-4">
   <div class="text-center my-2">
-    <p class="my-0">Jetzt anmelden und sofort deine <strong>Tonie's Sammlung</strong> kostenlos verwalten!</p>
-    <a class="my-0 btn btn-lg btn-outline-primary" role="button">Registrieren</a>
+    <p class="my-0">Jetzt anmelden und sofort deine <strong>Tonies Sammlung</strong> kostenlos verwalten!</p>
+    <a class="my-0 btn btn-lg btn-outline-primary" role="button" (click)="handleRegisterClick()">Registrieren</a>
   </div>
   <div class="text-center my-2">
     <p class="my-0"><strong>Du bist schon dabei? Einfach einloggen!</strong></p>
-    <a class="my-0 btn btn-lg btn-primary text-white" role="button">Einloggen</a>
+    <a class="my-0 btn btn-lg btn-primary" role="button" (click)="handleLoginClick()">Einloggen</a>
   </div>
 </div>
+
+<!--<h2>share?</h2>-->
+<!--<iframe-->
+  <!--[src]="linkString"-->
+  <!--width="73"-->
+  <!--height="28"-->
+  <!--style="border:none;overflow:hidden"-->
+  <!--scrolling="no"-->
+  <!--frameborder="0"-->
+  <!--allowTransparency="true"-->
+  <!--allow="encrypted-media">-->
+<!--</iframe>-->
+

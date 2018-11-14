@@ -8,7 +8,7 @@
 # dependencies
 /node_modules
 /functions/node_modules
-firebase.env.js
+firebase.env.ts
 # IDEs and editors
 /.idea
 .project

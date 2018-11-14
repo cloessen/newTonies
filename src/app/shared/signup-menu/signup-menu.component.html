@@ -1,0 +1,83 @@
+<div *ngIf="isLoading$ | async" class="container rounded grayed-out position-absolute" style="z-index: 100; margin-top: -1px; margin-bottom: 1px;  height: calc(100% + 2px); overflow: hidden">
+  <div class="row mx-auto" style="height: 100%">
+    <div class="col-md-8 mx-auto" style="height: 100%">
+      <div style="height: 100%; margin-top: 50%" class="mx-auto text-center align-content-center">
+        <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container my-4">
+  <h2 class="text-center">Registrierung</h2>
+  <form
+    class="col-md-8 mx-auto my-2"
+    [formGroup]="signupForm"
+    (ngSubmit)="handleEmailSignup()">
+    <div class="form-group">
+      <label for="email">Emailadresse</label>
+      <input
+        [ngClass]="{'is-invalid': email.hasError('email') || email.hasError('required') && email.touched}"
+        formControlName="email"
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="gültige Email"
+      />
+      <span *ngIf="email.hasError('required') && email.touched"><small>Emailadresse ist erforderlich</small></span>
+      <span *ngIf="email.hasError('email')"><small>keine korrekte Emailadresse</small></span>
+    </div>
+    <div class="form-group">
+      <label for="inputPassword">Password</label>
+      <input
+        formControlName="password"
+        type="password"
+        class="form-control"
+        id="inputPassword"
+        placeholder="Password">
+    </div>
+    <div class="form-group">
+      <label for="inputPasswordConfirm">Password</label>
+      <input
+        formControlName="confirmPassword"
+        type="password"
+        class="form-control"
+        id="inputPasswordConfirm"
+        placeholder="Password wiederholen">
+      <span *ngIf="(errors?.passwordsDontMatch == true) && confirmPassword.touched"><small>Passwörter stimmen nicht überein</small></span>
+    </div>
+    <!--<button-->
+    <!--[disabled]="signupForm.value.password !== signupForm.value.confirmPassword || signupForm.value.password == ''"-->
+    <!--(click)="handleEmailSignup()"-->
+    <!--type="button"-->
+    <!--class="btn btn-primary btn-block shadow"-->
+    <!--[ngClass]="{'disabled': signupForm.value.password !== signupForm.value.confirmPassword || signupForm.value.password == ''}">Registrieren</button>-->
+    <button
+      [disabled]="signupForm.invalid"
+      [ngClass]="{'disabled': signupForm.invalid}"
+      type="submit"
+      class="btn btn-primary btn-block shadow">Registrieren</button>
+  </form>
+  <hr>
+  <div class="col-md-8 mx-auto">
+    <button
+      (click)="handleGoogleSignup()"
+      type="button"
+      class="btn btn-block btn-light shadow">
+      <img
+        src="../../../assets/g-logo.png"
+        class="float-left"
+        style="height: 24px; width: 24px;">
+      Registrieren mit Google</button>
+    <button
+      (click)="handleFacebookSignup()"
+      type="button"
+      class="btn btn-block btn-light shadow">
+      <img
+        src="../../../assets/flogo_RGB_HEX-72.png"
+        class="float-left"
+        style="height: 24px; width: 24px;">
+      Registrieren mit Facebook</button>
+  </div>
+  <hr>
+  <div  class=" mx-auto text-center">Ich bin bereits registriert, weiter zur <span (click)="handleOpenLogin()" class="btn-link pointer">Anmeldung</span></div>
+</div>
