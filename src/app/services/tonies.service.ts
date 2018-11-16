@@ -33,7 +33,7 @@ export class ToniesService implements OnInit {
     return this._db
       .collection('tonies', ref =>
         ref
-          .orderBy('name')
+          .orderBy('name', 'asc')
           .startAfter(offset)
           .limit(this.batch)
       )

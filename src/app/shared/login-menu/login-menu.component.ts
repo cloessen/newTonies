@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-// import { Store } from '@ngrx/store';
-// import { AppState, getIsLoading } from '../../app.reducers';
 import { Observable, of } from 'rxjs';
 import { SignupMenuComponent } from '../signup-menu/signup-menu.component';
+import { select, Store } from '@ngrx/store';
+import { AppState, getIsLoading } from '../../app.reducer';
 
 @Component({
   selector: 'app-login-menu',
@@ -15,20 +15,20 @@ import { SignupMenuComponent } from '../signup-menu/signup-menu.component';
 export class LoginMenuComponent implements OnInit {
 
   public loginForm: FormGroup;
-  // public isLoading$: Observable<boolean>;
-  public isLoading$ = of(false);
+  public isLoading$: Observable<boolean>;
+  // public isLoading$ = of(false);
 
   constructor(
     private _auth: AuthService,
     private activeModal: NgbActiveModal,
-    // private _store: Store<AppState>,
+    private _store: Store<AppState>,
     private _modalService: NgbModal
   ) {
     // this._auth.logout();
   }
 
   ngOnInit() {
-    // this.isLoading$ = this._store.select(getIsLoading);
+    this.isLoading$ = this._store.pipe(select(getIsLoading));
     this.loginForm = new FormGroup({
       'email': new FormControl(null, Validators.required),
       'password': new FormControl(null, Validators.required)

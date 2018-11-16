@@ -4,19 +4,34 @@
   <button class="form-control btn btn-primary" type="submit">Suchen</button>
 </form>
 <ng-container *ngIf="infinite | async as tonies">
-  <cdk-virtual-scroll-viewport itemSize="128" (scrolledIndexChange)="nextBatch($event, (tonies[tonies.length - 1].name))">
-    <div class="list-group">
-      <a *cdkVirtualFor="let tonie of tonies; let i = index; trackBy: trackByIdx" class="bg-light list-group-item list-group-item-action animated zoomIn slow" href="#">
-        <p><strong>{{i+1}}: </strong>{{tonie.name}}</p>
-        <div class="btn-group">
-          <button class="btn btn-primary">add</button>
-          <button class="btn btn-info">buy</button>
+  <cdk-virtual-scroll-viewport [itemSize]="(screenSize$ | async) <= 767 ? 350 : 130 " (scrolledIndexChange)="nextBatch($event, (tonies[tonies.length - 1].name))">
+    <!--<ul class="">-->
+        <li *cdkVirtualFor="let tonie of tonies; let i = index; trackBy: trackByIdx" class="media bg-light border border-dark mb-1 animated zoomIn slow" [ngStyle]="{'height':displayHeight}">
+        <div class="d-flex flex-column flex-md-row ">
+          <img class="img-resizer ml-0" [src]="tonie.imgUrl" [alt]="tonie.name">
+          <div class="media-body">
+            <h5 class="mx-auto mt-md-2 mb-md-5">{{i+1}}: {{ tonie.name }}</h5>
+            <!--<p><strong>{{i+1}}: </strong>{{tonie.name}}</p>-->
+
+            <div class="btn-group">
+              <button class="btn btn-primary" (click)="handleAddClick(tonie)">add</button>
+              <button class="btn btn-info">buy</button>
+            </div>
+          </div>
         </div>
-      </a>
-    </div>
-    <div class="container">
-      <h2 class="mx-auto text-center">Das waren alle Tonies</h2>
-    </div>
+      </li>
+      <!--<a target="_blank" [href]="tonie.itemLink" *cdkVirtualFor="let tonie of tonies; let i = index; trackBy: trackByIdx" class="bg-light list-group-item list-group-item-action animated zoomIn slow">-->
+        <!--<p><strong>{{i+1}}: </strong>{{tonie.name}}</p>-->
+        <!--<img [src]="tonie.imgUrl">-->
+        <!--<div class="btn-group">-->
+          <!--<button class="btn btn-primary">add</button>-->
+          <!--<button class="btn btn-info">buy</button>-->
+        <!--</div>-->
+      <!--</a>-->
+    <!--</ul>-->
+    <!--<div class="container">-->
+      <!--<h2 class="mx-auto text-center">Das waren alle Tonies</h2>-->
+    <!--</div>-->
   </cdk-virtual-scroll-viewport>
 </ng-container>
 

@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
+import { AppState } from '../app.reducer';
+import { StartLoading, StopLoading } from '../store/ui.actions';
 
 
 
@@ -15,23 +18,27 @@ export class AuthService {
   constructor(
     private _afAuth: AngularFireAuth,
     private _toastr: ToastrService,
-    private _router: Router) {
+    private _router: Router,
+    private _store: Store<AppState>) {
   }
 
   private loginSuccess() {
     // JUST FOR TESTING
+    this._store.dispatch(new StopLoading());
     const title = 'Erfolgreich angemeldet!';
     const msg = 'Herzlich Willkommen!';
     this._toastr.success(msg , title);
     this._router.navigate(['/home']);
   }
   private signupSuccess() {
+    this._store.dispatch(new StopLoading());
     const title = 'Erfolgreich registriert!';
     const msg = 'Herzlich Willkommen!';
     this._toastr.success(msg , title);
     this._router.navigate(['/home']);
   }
   private catchedError(e) {
+    this._store.dispatch(new StopLoading());
     const errConfig = {
       timeOut: 3000
     }
@@ -52,6 +59,7 @@ export class AuthService {
   // EMAIL & PASSWORD
 
   public signupWithEmailPassword(email, password, activeModal: NgbActiveModal) {
+    this._store.dispatch(new StartLoading());
     this._afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then( () => {
         activeModal.close();
@@ -59,6 +67,7 @@ export class AuthService {
       }).catch(err => this.catchedError(err));
   }
   public loginWithEmailPassword(email, password, activeModal: NgbActiveModal) {
+    this._store.dispatch(new StartLoading());
     this._afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(() => {
           activeModal.close();

@@ -19,6 +19,11 @@ import { environment } from '../environments/environment';
 import { ToniesService } from './services/tonies.service';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { SharedModule } from './shared/shared.module';
+import { ScreenService } from './services/screen.service';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducers } from './app.reducer';
 
 
 const globalToastrConfig: Partial<GlobalConfig> = {
@@ -49,9 +54,16 @@ const globalToastrConfig: Partial<GlobalConfig> = {
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    SharedModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(globalToastrConfig), // ToastrModule added
-    ScrollingModule, ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ScrollingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
   entryComponents: [
     LoginMenuComponent,
@@ -59,7 +71,8 @@ const globalToastrConfig: Partial<GlobalConfig> = {
   ],
   providers: [
     AuthService,
-    ToniesService
+    ToniesService,
+    ScreenService
   ],
   bootstrap: [AppComponent]
 })

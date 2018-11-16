@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToniesService } from '../../../services/tonies.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Tonie } from '../../../shared/interfaces/tonie';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { map, mergeMap, scan, throttleTime } from 'rxjs/operators';
+import { ScreenService } from '../../../services/screen.service';
 
 @Component({
   selector: 'app-all-tonies',
@@ -19,10 +19,14 @@ export class AllToniesComponent implements OnInit {
   infinite: Observable<any[]>;
   // theEnd$: Observable<boolean>;
   theEnd = false;
+  screenSize$: Observable<any>;
+  displayHeight: string;
 
 
   constructor(
-    private _tonies: ToniesService) {
+    private _tonies: ToniesService,
+    private _screen: ScreenService
+  ) {
     const batchMap = this.offset.pipe(
       throttleTime(500),
       mergeMap(n => this._tonies.getBatch(n)),
@@ -31,7 +35,9 @@ export class AllToniesComponent implements OnInit {
       }, {})
     );
     this.infinite = batchMap.pipe(map(v => Object.values(v)));
-   this._tonies.theEnd.subscribe(v => this.theEnd = v);
+    this._tonies.theEnd.subscribe(v => this.theEnd = v);
+    this.screenSize$ = this._screen.getScreenObserver();
+    this.screenSize$.subscribe(value => this.displayHeight = value <= 767 ? '350px;' : '130px;');
   }
 
   nextBatch(e, offset) {
@@ -49,18 +55,13 @@ export class AllToniesComponent implements OnInit {
   trackByIdx(i) {
     return i;
   }
-  //
-  // allTonies$: Observable<any[]>;
-  // constructor(
-  //   private _tonies: ToniesService
-  // ) {
-  //   this.allTonies$ = this._tonies.getAllTonies();
-  // }
-  //
+
   ngOnInit() {
 
   }
-
+  handleAddClick(tonie) {
+    console.log(tonie);
+  }
 
 
 }
